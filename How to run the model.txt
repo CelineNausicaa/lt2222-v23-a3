@@ -1,0 +1,52 @@
+Assignment 3 - 28.03.2023
+Please note: I am really behind on most assignment this semester, as I had some complicated circumstances happening at the start of the year. I hence could not afford to take the time to finish part 3 of this assignment. Apologies for this. I will gladly come back to it once I can finish all the other late assignments that I must finish.
+
+The mode consists in two files: a3_feature.py and a3_model.py
+
+The a3_feature.py file:
+
+What to write in the command line to run it:
+python3 a3_feature.py /scratch/lt2222-v23  feature.csv feature_test.csv 30
+Argument 1: /scratch/lt2222-v23
+The first argument is the directory where the data is located. This can be run directly when entering mltgpu.
+The programme will look into this directory and process the data using the function format_data().
+The method to cut used to cut the signature/headers is as follows: 
+the function checks each email, and tokenizes each line. If element[1] of the tokenized line is ":", then it removes this line. The reason is that the line is most probably a header of the type "Title: blabla", or "Date:28.03.22". It also only appends to the data the lines that are longer than 2. Since signatures are often on their own line, and contain max 2 words, it would be logical that any sentence that has less than 3 words is probably a signature and should therefore be removed. 
+
+Argument 2: feature.csv (example)
+The second command line argument is the name of the file where the feature table will be printed. 
+Note that the file will be created in the same directory than the a3_feature.py.
+The user can choose whichever name they want, but it must be a .csv file, since the model uses the csv module later on.
+Only the training data will be printed in this file. This is another way to label each data point as belonging either to the training
+or testing set. I personally found it clearer to have two separated files, hence this decision.
+
+Argument 3: feature_test.csv (example)
+The third command line argument is the name of the file where the feature table will be printed, but only the test data.
+The name of this file will be reused in a3_model.py in order to train the data. 
+
+Argument 4: 30 (example)
+This is the number of dimensions that the user would like to choose for the data. In this case, there will be a total of 30 features. 
+
+Argument 5 (optional): -T 30
+This is the proportion of test set that the user would like to use. In this case, 30% of the set will be used as the test set. If the user does
+not enter any value, it is defaulted to 20%.
+
+The a3_model.py file:
+What to write in the comand line to run it:
+python3 a3_model.py feature.csv feature_test.csv
+Argument 1: feature.csv (example)
+The first argument tells the programme where to look for training data. In our case, it can be the same file than the one that was just created previously in a3_feature.py.
+It should be located in the same diretory than a3_model.py, and should be a .csv format.
+
+Argument 2: feature_test.csv (example)
+The second argument is the name of the file where the programme should look for testing data. It can be the same file than the one that was created
+previously in a3_feature.py.
+It should be located in the same diretory than a3_model.py, and should be a .csv format.
+
+Ethics discussion
+Ethical questions are always complex and answering them in a clear-cut way is usually not an option. In our case, there are multiple subquestions that should be considered.
+We can start with the most simple one: is it ethical or not to take data from people that did not give their consent? Without context, the answer is pretty clear: it is not. However, I naturally start thinking that since these emails were written by people that commited criminal offences, it would only be fair that they should be deprived of their right over this data. Hence, at first sight, it seems fair that their data would be stolen from them. To oversimplify it: if they have done something "bad", I feel less torn donig something "bad" against them. This is my purely emotional reasoning. However, I think this reasning is neither ethical nor sensible. Committing a crime (however bad it is) does not mean that somebody should be deprived of their rights, no matter how insignificant these rights might be (ie. right to privacy with your own data). It would not be fair to eg. steal an object from someone, just because they have eg. gone over the speed limit on the highway. Committing an offence does not deprive a person of their rights (unless decided by a judge, who would for example decide that a criminal should not have their freedom anymore and send them to jail/make them pay a high fine).
+
+Another question comes into play, however: what if it is clearly stated on their contract that their data does not really belong to them, ie. that it is the property of the company, and can hence be taken away if necessary/if the company collapses? In my opinion, the answer to this question is a game changer. If the writers knew that by using their company email, they were not fully in control of where their data would go, then I think it is only fair that their data would be used by the company. However, if it belongs to the company and the company collapses, it sounds fair to my ears that this data should be deleted (since the body to whom it belonged no longer exists). But then comes the next question: should we let the frauders be free, just because it would be unethical to get their data? Ie. if the emails were the only proof that they had commited criminal offence, should the judges not use it, just because it would be unethical? This would be unacceptable from a more "philosophical" point of view. Objectively, looking into someone's emails is less unethical than committing multiple frauds (and violating human rights, which they sometimes did, according to Eron's wikipedia page). At the end of the day, I think it is fair that their data was used against them in this specific context.
+
+How should we link all of that to NLP? If I follow my previous reasoning, then I guess my conclusion should be: one can take their emails (and hence do something "unethical") only if there is a good enough reason to do so. Taking this data to further prove that they committed crimes is a good enough reason. Taking this data to do NLP reasearch does not really sound like a good enough reason, even though NLP is of course a (super interesting and amazing) growing field in constant need of data. Legally, I do not know if there exists such a border between "good enough" and "not good enough" reasons. My best guess is that there is not. In other words, I am assuming that the judges could use this data only because it was already made publicly available, and if it is, then why wouldn't we do NLP research with it, since it is out there already. Publishing the data out in the open is the "unethical" act, in my opinion. Once the harm is done, taking the data for NLP research sounds acceptable to me; in other words, doing NLP research with the data will not be more unethical than publishing it in the first place. But this is of course not a fully optimal way of doing NLP.
